@@ -1,0 +1,33 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"parcela": "P01", "descricao": "Parcela P01 – desempenho alto"},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-34.9070, -7.8350],
+          [-34.9060, -7.8350],
+          [-34.9060, -7.8340],
+          [-34.9070, -7.8340],
+          [-34.9070, -7.8350]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {"parcela": "P02", "descricao": "Parcela P02 – recuperação em progresso"},
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-34.9050, -7.8360],
+          [-34.9040, -7.8360],
+          [-34.9040, -7.8350],
+          [-34.9050, -7.8350],
+          [-34.9050, -7.8360]
+        ]]
+      }
+    }
+  ]
+}

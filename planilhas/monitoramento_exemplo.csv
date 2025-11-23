@@ -1,0 +1,6 @@
+parcela,data,bioma,coordenada_lat,coordenada_lon,especie,nome_popular,plantadas_vivas,plantadas_totais,altura_m,diametro_cm,cobertura_copa_pct,cobertura_invasoras_pct,observacoes,foto
+P01,2025-02-15,Mata Atlantica,-8.0000,-34.9000,Inga vera,Ingá,24,30,1.2,1.8,35,20,Capina realizada; formigas controladas,photos/P01_20250215.jpg
+P01,2025-08-20,Mata Atlantica,-8.0000,-34.9000,Inga vera,Ingá,26,30,1.8,2.5,55,15,Replantio 5 mudas,photos/P01_20250820.jpg
+P01,2025-02-15,Mata Atlantica,-8.0000,-34.9000,Cecropia pachystachya,Embaúba,18,20,1.0,1.4,30,20,Boa sanidade,photos/P01_20250215_b.jpg
+P02,2025-02-15,Caatinga,-8.2000,-36.0000,Spondias tuberosa,Umbuzeiro,12,15,0.6,1.0,20,25,Solo pedregoso; cobertura morta aplicada,photos/P02_20250215.jpg
+P02,2025-08-22,Caatinga,-8.2000,-36.0000,Spondias tuberosa,Umbuzeiro,13,15,0.8,1.2,28,18,Replantio 2 mudas,photos/P02_20250822.jpg

@@ -1,0 +1,21 @@
+Item,Unidade,Quantidade,Custo Unitário (R$),Custo Total (R$),Observações
+Diagnóstico e projeto,lote,1,0,0,Levantamento de campo, mapas e PRAD
+Cercamento,m,0,0,0,Arame, mourões, porteiras
+Aceiros e sinalização,ha,0,0,0,Prevenção de incêndios
+Preparo do solo (subsolagem/esc.),ha,0,0,0,Conservação de solo
+Coveamento (30–40 cm),cova,0,0,0,Inclui adubação de base
+Mudas nativas,un,0,0,0,Altura ≥ 30–40 cm
+Sementes (se houver),kg,0,0,0,Muvuca/semidireta
+Hidrogel e insumos,lote,0,0,0,Correção e adubação
+Plantio (mão-de-obra),ha,0,0,0,Equipe e logística
+Controle de formigas,lote,0,0,0,Iscas; múltiplas rodadas
+Capinas/coroamentos (Ano 1),ha,0,0,0,3–6 intervenções
+Capinas/coroamentos (Ano 2),ha,0,0,0,2–4 intervenções
+Replantio (3–6 e 12 meses),un,0,0,0,Se sobrevivência < 80%
+Controle de invasoras (químico autorizado),ha,0,0,0,Pontual e dirigido
+Obras conservacionistas,und,0,0,0,Bacias/paliçadas/terraços
+Monitoramento (campanhas),campanha,0,0,0,Indicadores e relatórios
+Gestão, mobilização e EPI,mes,0,0,0,Coordenação e segurança
+Transporte e logística,lote,0,0,0,Veículos e combustível
+Contingência (%),%,10,0,0,Sugerido 10–20%
+TOTAL, , , , ,Somatório automático na planilha de trabalho

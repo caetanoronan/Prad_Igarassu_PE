@@ -1,0 +1,7 @@
+parcela,data,bioma,riqueza_especies,total_plantadas,total_vivas,taxa_sobrevivencia_pct,altura_media_m,diametro_medio_cm,cobertura_copa_media_pct,cobertura_invasoras_media_pct,status
+P01,2025-02-15,Mata Atlantica,4,115,94,81.74,0.95,1.3,27.0,40.0,"OK_sobrevivencia,ATENCAO_invasoras"
+P01,2025-08-20,Mata Atlantica,4,115,101,87.83,1.45,1.88,51.25,22.0,"OK_sobrevivencia,ATENCAO_invasoras"
+P01,2026-02-10,Mata Atlantica,4,115,105,91.3,1.88,2.45,69.0,12.25,"OK_sobrevivencia,OK_invasoras"
+P02,2025-02-15,Mata Atlantica,4,100,74,74.0,0.78,1.12,21.25,45.75,"ATENCAO_sobrevivencia,ATENCAO_invasoras"
+P02,2025-08-20,Mata Atlantica,4,100,83,83.0,1.18,1.6,44.0,25.5,"OK_sobrevivencia,ATENCAO_invasoras"
+P02,2026-02-10,Mata Atlantica,4,100,87,87.0,1.68,2.25,64.0,16.5,"OK_sobrevivencia,OK_invasoras"
