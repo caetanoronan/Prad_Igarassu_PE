@@ -18,15 +18,11 @@ body,html{height:100%;margin:0;padding:0;font-family:Arial,sans-serif;}
     .info h3 { font-size:13px; }
     .footer { left: 10px; right: 10px; bottom: 10px; max-width: none; }
 }
-/* Botão alternar legenda */
-.toggle-info-btn { position: absolute; right: 10px; bottom: 70px; z-index: 2000; background: #2c3e50; color: white; border: none; padding: 8px 10px; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); font-size: 13px; }
-.toggle-info-btn.small { padding:6px 8px; font-size:12px; }
-.hidden-info { display: none !important; }
+/* legenda sempre visível; botão de alternar removido (causava bloqueio) */
 </style>
 </head><body>
 <div class='header'>PRAD Simulado – Mata Atlântica (Pernambuco)</div>
 <div id='map'></div>
-<button id='toggleInfoBtn' class='toggle-info-btn' aria-pressed='false' title='Mostrar / Ocultar legenda'>Mostrar</button>
 <div class='info' id='infoPanel'>
   <h3>Local de Estudo</h3>
     <strong>Município:</strong> Igarassu/PE<br/>
