@@ -5,17 +5,53 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Entrega – PRAD Simulado_PE</title>
   <style>
-    body{{font-family:Segoe UI,Arial,sans-serif;padding:28px;background:#f7fafc;color:#2c3e50}}
-    .wrap{{max-width:1200px;margin:0 auto}}
-    header{{display:flex;align-items:center;justify-content:space-between}}
-    h1{{font-size:20px;margin:0}}
-    .cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-top:22px}}
-    .card{{background:white;border-radius:8px;padding:14px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}}
-    .card h3{{margin-top:0;margin-bottom:8px;font-size:16px}}
-    .frame{{width:100%;height:420px;border:1px solid #e6e6e6;border-radius:6px}}
-    .links{margin-top:10px}
-    .links a{{margin-right:8px;color:#2c3e50;text-decoration:none;background:#e6f0ff;padding:6px 9px;border-radius:6px;border:1px solid #cfe0ff}}
-    footer{{margin-top:22px;text-align:center;font-size:13px;color:#718096}}
+    /* ColorBrewer BuGn palette (n=3) */
+    :root{
+      --bugn-1:#e5f5f9; /* light */
+      --bugn-2:#99d8c9; /* medium */
+      --bugn-3:#2ca25f; /* dark */
+      --bg: #f7fafc;
+      --muted: #4a5963;
+      --card: #ffffff;
+      --shadow: 0 6px 18px rgba(0,0,0,0.06);
+      --accent: var(--bugn-3);
+    }
+
+    /* Reset & layout */
+    *{box-sizing:border-box}
+    body{font-family:Inter,Segoe UI,Arial,sans-serif;padding:24px;background:var(--bg);color:#172a24;margin:0}
+    .wrap{max-width:1200px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    h1{font-size:20px;margin:0}
+
+    /* Tabs */
+    .tabs{margin-top:20px;background:transparent}
+    .tablist{display:flex;gap:8px;flex-wrap:wrap}
+    .tab{background:var(--card);border:1px solid #e6eef0;padding:10px 14px;border-radius:8px;cursor:pointer;color:var(--muted);}
+    .tab[aria-selected="true"]{background:linear-gradient(90deg,var(--bugn-1),#f0fbf7);border-color:var(--bugn-2);color:var(--accent);box-shadow:var(--shadow)}
+
+    /* Panels */
+    .panel{margin-top:16px;background:var(--card);padding:12px;border-radius:8px;box-shadow:var(--shadow)}
+    .panel.hidden{display:none}
+
+    .frame{width:100%;height:56vh;min-height:300px;border:1px solid #e6e6e6;border-radius:6px}
+
+    .meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px}
+    .meta .badge{padding:6px 10px;border-radius:999px;font-weight:600;border:1px solid rgba(0,0,0,0.06)}
+    .meta .open{background:var(--bugn-2);color:#053018;border-color:transparent}
+
+    .explain{margin-top:10px;color:var(--muted);line-height:1.5}
+
+    footer{margin-top:18px;text-align:center;font-size:13px;color:#6c7680}
+
+    /* Responsive adjustments */
+    @media (max-width:720px){
+      h1{font-size:18px}
+      .tab{flex:1 1 auto;text-align:center}
+      .frame{height:48vh}
+    }
+
+    @media (prefers-reduced-motion:reduce){*{transition:none!important}}
   </style>
 </head>
 <body>
@@ -25,27 +61,77 @@
       <div>Publicável via GitHub Pages • Copiado: relatorio_tecnico.html, relatorio.html, mapa.html</div>
     </header>
 
-    <section class="cards">
-      <div class="card">
-        <h3>Relatório Técnico</h3>
+    <section class="tabs" aria-label="Visuais PRAD">
+      <div class="tablist" role="tablist" aria-label="Seletor de visualizações">
+        <button class="tab" role="tab" aria-selected="true" aria-controls="panel-tech" id="tab-tech">Relatório Técnico</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-dash" id="tab-dash">Dashboard</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="panel-map" id="tab-map">Mapa</button>
+      </div>
+
+      <div id="panel-tech" class="panel" role="tabpanel" aria-labelledby="tab-tech">
+        <h3 style="margin-top:0">Relatório Técnico</h3>
         <iframe class="frame" src="Simulado_PE/visuais/relatorio_tecnico.html" title="Relatório Técnico"></iframe>
-        <div class="links"><a href="Simulado_PE/visuais/relatorio_tecnico.html" target="_blank">Abrir em nova aba</a></div>
+        <div class="meta">
+          <span class="badge">Documento longo</span>
+          <a class="open" href="Simulado_PE/visuais/relatorio_tecnico.html" target="_blank">Abrir em nova aba</a>
+        </div>
+        <p class="explain"><strong>Relatório Técnico:</strong> documento detalhado com metodologia, análises e resultados técnicos — ideal para leitura completa e impressão. Contém tabelas detalhadas, gráficos e recomendações técnicas.</p>
       </div>
 
-      <div class="card">
-        <h3>Dashboard de Monitoramento</h3>
+      <div id="panel-dash" class="panel hidden" role="tabpanel" aria-labelledby="tab-dash">
+        <h3 style="margin-top:0">Dashboard de Monitoramento</h3>
         <iframe class="frame" src="Simulado_PE/visuais/relatorio.html" title="Dashboard"></iframe>
-        <div class="links"><a href="Simulado_PE/visuais/relatorio.html" target="_blank">Abrir em nova aba</a></div>
+        <div class="meta">
+          <span class="badge">Resumo visual</span>
+          <a class="open" href="Simulado_PE/visuais/relatorio.html" target="_blank">Abrir em nova aba</a>
+        </div>
+        <p class="explain"><strong>Dashboard:</strong> visual interativo com gráficos e indicadores (sobrevivência, cobertura, riqueza, diversidade). Ótimo para exploração rápida, apresentações e relatórios resumidos.</p>
       </div>
 
-      <div class="card">
-        <h3>Mapa Interativo</h3>
+      <div id="panel-map" class="panel hidden" role="tabpanel" aria-labelledby="tab-map">
+        <h3 style="margin-top:0">Mapa Interativo</h3>
         <iframe class="frame" src="Simulado_PE/visuais/mapa.html" title="Mapa"></iframe>
-        <div class="links"><a href="Simulado_PE/visuais/mapa.html" target="_blank">Abrir em nova aba</a></div>
+        <div class="meta">
+          <span class="badge">Geoespacial</span>
+          <a class="open" href="Simulado_PE/visuais/mapa.html" target="_blank">Abrir em nova aba</a>
+        </div>
+        <p class="explain"><strong>Mapa:</strong> mapa Leaflet interativo mostrando limites e parcelas georreferenciadas — melhor opção para inspecionar a localização, limites e sobreposições geográficas.</p>
       </div>
     </section>
 
     <footer>Autor: Ronan Armando Caetano — PRAD Simulado_PE • Gerado localmente</footer>
   </div>
+
+  <script>
+    // Lightweight accessible tabs behavior (keyboard + mouse)
+    (function(){
+      const tabs = Array.from(document.querySelectorAll('.tab'));
+      const panels = Array.from(document.querySelectorAll('.panel'));
+
+      function activate(index){
+        tabs.forEach((t,i)=>{
+          const sel = i===index;
+          t.setAttribute('aria-selected', sel? 'true':'false');
+          t.tabIndex = sel? 0 : -1;
+          panels[i].classList.toggle('hidden', !sel);
+        });
+      }
+
+      tabs.forEach((t, idx)=>{
+        t.addEventListener('click', ()=> activate(idx));
+        t.addEventListener('keydown', (ev)=>{
+          if(ev.key === 'ArrowRight' || ev.key==='ArrowDown'){
+            ev.preventDefault(); activate((idx+1)%tabs.length); tabs[(idx+1)%tabs.length].focus();
+          } else if(ev.key === 'ArrowLeft' || ev.key==='ArrowUp'){
+            ev.preventDefault(); activate((idx-1+tabs.length)%tabs.length); tabs[(idx-1+tabs.length)%tabs.length].focus();
+          } else if(ev.key==='Home'){ ev.preventDefault(); activate(0); tabs[0].focus(); }
+          else if(ev.key==='End'){ ev.preventDefault(); activate(tabs.length-1); tabs[tabs.length-1].focus(); }
+        });
+      });
+
+      // make sure first is active by default
+      activate(0);
+    })();
+  </script>
 </body>
 </html>
