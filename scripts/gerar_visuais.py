@@ -32,6 +32,8 @@ COLOR_ALERTA_CRITICO = '#d73027'  # Vermelho
 COLOR_ALERTA_ATENCAO = '#fee08b'  # Amarelo
 COLOR_ALERTA_OK = '#1a9850'       # Verde
 
+# Paleta ColorBrewer BuGn (3 classes) - usada para visualizações principais
+CB_BUGN = ['#e5f5f9', '#99d8c9', '#2ca25f']
 
 def read_rows(path):
     with open(path, newline='', encoding='utf-8') as f:
@@ -560,7 +562,8 @@ def download_all_biomas(out_path):
 
 
 def write_relatorio(path_out, series, datas, series_sp, rows):
-    colors = ['#2b8cbe','#de2d26','#41ab5d','#756bb1']
+    # Paleta principal para gráficos (BuGn 3 - sequencial acessível)
+    colors = CB_BUGN
     
     # Calcular última data
     ultima_data = max(datas) if datas else ''
@@ -627,38 +630,48 @@ def write_relatorio(path_out, series, datas, series_sp, rows):
         '<meta name="viewport" content="width=device-width, initial-scale=1">',
         '<title>Dashboard PRAD – Monitoramento e Indicadores</title>',
         '<style>',
+        ':root {',
+        "  --bg: #f7fcfb;",
+        "  --card: #ffffff;",
+        "  --muted: #61707a;",
+        "  --accent: #2ca25f;",
+        "  --bugn-1: #e5f5f9;",
+        "  --bugn-2: #99d8c9;",
+        "  --bugn-3: #2ca25f;",
+        '}',
         '* { margin: 0; padding: 0; box-sizing: border-box; }',
-        'body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; padding: 20px; }',
-        '.dashboard { max-width: 1400px; margin: 0 auto; }',
-        '.header { background: white; padding: 30px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }',
-        '.header h1 { color: #2c3e50; font-size: 32px; margin-bottom: 8px; }',
-        '.header p { color: #7f8c8d; font-size: 14px; }',
-        '.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 20px; }',
-        '.metric-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s; }',
-        '.metric-card:hover { transform: translateY(-4px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }',
-        '.metric-label { font-size: 13px; color: #7f8c8d; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }',
-        '.metric-value { font-size: 36px; font-weight: bold; color: #2c3e50; margin-bottom: 4px; }',
-        '.metric-unit { font-size: 18px; color: #95a5a6; margin-left: 4px; }',
-        '.metric-trend { font-size: 12px; color: #27ae60; margin-top: 4px; }',
-        '.metric-trend.negative { color: #e74c3c; }',
-        '.metric-icon { float: right; font-size: 32px; opacity: 0.3; }',
-        '.section-title { background: white; padding: 16px 24px; border-radius: 12px; margin: 24px 0 16px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }',
-        '.section-title h2 { color: #2c3e50; font-size: 24px; margin: 0; border-left: 4px solid #667eea; padding-left: 12px; }',
-        '.charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 20px; margin-bottom: 20px; }',
-        '.charts-grid-single { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 20px; }',
-        '.chart-card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }',
-        '.chart-card h3 { color: #2c3e50; font-size: 18px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #ecf0f1; }',
-        '.footer { background: white; padding: 20px; border-radius: 12px; text-align: center; color: #7f8c8d; font-size: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }',
-        '.legend { margin-top: 12px; font-size: 13px; }',
-        '.legend span { margin-right: 16px; }',
-        '@media (max-width: 768px) { .charts-grid, .charts-grid-single { grid-template-columns: 1fr; } .metrics { grid-template-columns: 1fr; } }',
-    '  @media print {',
-    '    body { background: white; }',
-    '    .header, .metric-card, .chart-card, .footer { box-shadow: none !important; }',
-    '  }',
-    '</style>',
+        'body { font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: #17323b; padding: 18px; -webkit-font-smoothing:antialiased; }',
+        '.dashboard { max-width: 1200px; margin: 0 auto; }',
+        '.skip-link { position: absolute; left: -999px; top: auto; width:1px; height:1px; overflow:hidden; }',
+        '.skip-link:focus { left: 18px; top: 18px; width:auto; height:auto; padding:8px 12px; background:var(--card); border-radius:6px; box-shadow:0 6px 18px rgba(0,0,0,0.12); z-index:2000; }',
+        '.header { background: var(--card); padding: 20px; border-radius: 10px; margin-bottom: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }',
+        '.header h1 { color: #0f3b2d; font-size: 26px; margin-bottom: 6px; }',
+        '.header p { color: var(--muted); font-size: 14px; }',
+        '.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 18px; }',
+        '.metric-card { background: var(--card); padding: 18px; border-radius: 10px; box-shadow: 0 6px 18px rgba(3,19,16,0.04); transition: transform 0.18s ease-in-out; }',
+        '.metric-card:hover { transform: translateY(-6px); }',
+        '.metric-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }',
+        '.metric-value { font-size: 30px; font-weight: 700; color: #082a20; margin-bottom: 4px; }',
+        '.metric-unit { font-size: 14px; color: var(--muted); margin-left: 6px; }',
+        '.metric-trend { font-size: 12px; color: var(--accent); margin-top: 6px; }',
+        '.metric-trend.negative { color: #bf2b2b; }',
+        '.metric-icon { float: right; font-size: 28px; opacity: 0.25; }',
+        '.section-title { background: transparent; padding: 8px 0; margin: 18px 0 8px 0; }',
+        '.section-title h2 { color: #0f3b2d; font-size: 20px; margin: 0; border-left: 4px solid var(--bugn-3); padding-left: 12px; }',
+        '.charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 16px; margin-bottom: 18px; }',
+        '.charts-grid-single { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 18px; }',
+        '.chart-card { background: var(--card); padding: 18px; border-radius: 10px; box-shadow: 0 6px 18px rgba(3,19,16,0.04); }',
+        '.chart-card h3 { color: #082a20; font-size: 16px; margin-bottom: 12px; }',
+        '.footer { background: transparent; padding: 12px 0; text-align: center; color: var(--muted); font-size: 13px; }',
+        '.legend { margin-top: 12px; font-size: 13px; color: var(--muted); }',
+        '.legend span { margin-right: 12px; display:inline-block; }',
+        '@media (max-width: 900px) { .charts-grid, .charts-grid-single { grid-template-columns: 1fr; } .metrics { grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); } }',
+        '@media print { body { background: white; } .header, .metric-card, .chart-card { box-shadow: none !important; } }',
+        '@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }',
+        '</style>',
         '</head><body>',
-        '<div class="dashboard">',
+        '<a class="skip-link" href="#main">Pular para o conteúdo</a>',
+        '<div class="dashboard" id="main" role="main">',
         '<div class="header">',
         '<h1>📊 Dashboard PRAD – Monitoramento e Indicadores</h1>',
         '<p>Programa de Recuperação de Áreas Degradadas | Igarassu/PE | Última atualização: ' + datas[-1] + '</p>',
@@ -1008,27 +1021,37 @@ def write_mapa(path_out, geojson_path):
     html = f"""<!DOCTYPE html><html lang='pt-br'><head><meta charset='utf-8'/><title>Mapa – PRAD Simulado Pernambuco</title>
 <link rel='stylesheet' href='{leaflet_css}'/>
 <style>
-body,html{{height:100%;margin:0;padding:0;font-family:Arial,sans-serif;}}
-#map{{height:calc(100% - 60px);width:100%;}}
-.header{{background:#2c3e50;color:#fff;padding:12px 20px;font-size:18px;font-weight:bold;text-align:center;}}
-.info{{background:#fff;padding:10px 12px;border:2px solid #333;position:absolute;top:120px;left:10px;z-index:600;font-size:13px;line-height:1.6;max-width:320px;box-shadow:0 2px 6px rgba(0,0,0,0.3);border-radius:6px;overflow:auto;max-height:60vh;transition:all 0.15s ease-in-out;}}
-.info h3{{margin:0 0 8px 0;font-size:14px;border-bottom:2px solid #2c3e50;padding-bottom:4px;}}
-.legend-item{{margin:4px 0;}}
-.legend-item span{{display:inline-block;width:20px;height:12px;margin-right:6px;border:1px solid #333;}}
-.footer{{position:absolute;bottom:10px;left:10px;background:rgba(255,255,255,0.95);padding:6px 10px;font-size:11px;border:1px solid #ccc;z-index:600;border-radius:6px;text-align:left;max-width:calc(100% - 40px);}}
+:root {{
+    --bg: #f7fcfb;
+    --card: #ffffff;
+    --muted: #425b55;
+    --accent: #2ca25f;
+    --bugn-1: #e5f5f9;
+    --bugn-2: #99d8c9;
+    --bugn-3: #2ca25f;
+}}
+body,html{{height:100%;margin:0;padding:0;font-family:Arial,sans-serif;background:var(--bg);color:#0b2e24}}
+#map{{height:calc(100% - 64px);width:100%;}}
+.header{{background:var(--card);color:var(--muted);padding:12px 20px;font-size:18px;font-weight:700;text-align:center;border-bottom:4px solid var(--bugn-2);}}
+.info{{background:var(--card);padding:12px 14px;border:1px solid rgba(6,33,24,0.08);position:absolute;top:120px;left:12px;z-index:900;font-size:14px;line-height:1.5;max-width:360px;box-shadow:0 8px 20px rgba(6,33,24,0.06);border-radius:8px;overflow:auto;max-height:60vh;transition:transform 180ms ease,opacity 180ms ease;}}
+.info h3{{margin:0 0 8px 0;font-size:15px;border-bottom:2px solid var(--bugn-1);padding-bottom:6px;color:#073826}}
+.legend-item{{margin:6px 0;display:flex;align-items:center;gap:8px}}
+.legend-item .swatch{{display:inline-block;width:22px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,0.06)}}
+.footer{{position:absolute;bottom:12px;left:12px;background:rgba(255,255,255,0.95);padding:8px 12px;font-size:12px;border-radius:8px;z-index:900;text-align:left;max-width:calc(100% - 40px);box-shadow:0 6px 14px rgba(6,33,24,0.06)}}
 /* Garantir controles do Leaflet por cima dos elementos informativos */
-.leaflet-control-container{{z-index:1500 !important;}}
+.leaflet-control-container{{z-index:1600 !important}}
 
 @media (max-width: 700px) {{
-    .info {{ position: fixed; bottom: 70px; left: 10px; right: 10px; top: auto; max-width: none; max-height:35vh; }}
-    #map {{ height: calc(100% - 120px); }}
-    .info h3 {{ font-size:13px; }}
-    .footer {{ left: 10px; right: 10px; bottom: 10px; max-width: none; }}
+        .info {{ position: fixed; bottom: 88px; left: 12px; right: 12px; top: auto; max-width: none; max-height:36vh; }}
+        #map {{ height: calc(100% - 156px); }}
+        .info h3 {{ font-size:14px; }}
+        .footer {{ left: 12px; right: 12px; bottom: 12px; max-width: none; }}
 }}
 /* Botão alternar legenda */
-.toggle-info-btn {{ position: absolute; right: 10px; bottom: 70px; z-index: 1400; background: #2c3e50; color: white; border: none; padding: 8px 10px; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); font-size: 13px; }}
-.toggle-info-btn.small {{ padding:6px 8px; font-size:12px; }}
-.hidden-info {{ display: none !important; }}
+.toggle-info-btn {{ position: absolute; right: 12px; bottom: 88px; z-index: 1500; background: var(--bugn-3); color: white; border: none; padding: 10px 12px; border-radius: 8px; cursor: pointer; box-shadow: 0 6px 14px rgba(6,33,24,0.12); font-size: 14px; }}
+.toggle-info-btn.small {{ padding:8px 10px; font-size:13px; }}
+.toggle-info-btn:focus {{ outline:3px solid rgba(44,162,95,0.18); }}
+.hidden-info {{ transform: translateY(6px); opacity: 0; pointer-events: none; }}
 </style>
 </head><body>
 <div class='header'>PRAD Simulado – Mata Atlântica (Pernambuco)</div>
@@ -1041,10 +1064,10 @@ body,html{{height:100%;margin:0;padding:0;font-family:Arial,sans-serif;}}
   <strong>Área:</strong> 12 ha (APP + RL)<br/>
   <hr style='margin:8px 0;'/>
   <h3>Legendas</h3>
-    <div class='legend-item'><span style='background:#2b8cbe;'></span>Parcela P01 – Desempenho alto</div>
-    <div class='legend-item'><span style='background:#de2d26;'></span>Parcela P02 – Recuperação progressiva</div>
-    <div class='legend-item'><span style='display:inline-block;width:22px;height:2px;background:#1b7837;border:0;vertical-align:middle;margin-right:6px;'></span>Limite Estadual</div>
-    <div class='legend-item'><span style='display:inline-block;width:22px;height:2px;background:#984ea3;border:0;vertical-align:middle;margin-right:6px;'></span>Limite Municipal</div>
+    <div class='legend-item'><span class='swatch' style='background:var(--bugn-3);'></span>Parcela P01 – Desempenho alto</div>
+    <div class='legend-item'><span class='swatch' style='background:var(--bugn-2);'></span>Parcela P02 – Recuperação progressiva</div>
+    <div class='legend-item'><span class='swatch' style='width:28px;height:6px;border-radius:3px;background:rgba(11,46,36,0.08);border:0;'></span>Limite Estadual</div>
+    <div class='legend-item'><span class='swatch' style='width:28px;height:6px;border-radius:3px;background:rgba(136,77,164,0.12);border:0;'></span>Limite Municipal</div>
 </div>
 <div class='footer'><strong>Autor:</strong> Ronan Armando Caetano — Graduando em Ciências Biológicas (UFSC) • Técnico em Geoprocessamento (IFSC) • Técnico em Saneamento (IFSC)</div>
 <script src='{leaflet_js}'></script>
