@@ -152,6 +152,8 @@ if (geojsonEstadual) {
     } catch(e) {
         console.warn('Falha ao adicionar limite estadual:', e);
     }
+    // adicionar ao mapa por padrão para que fique visível
+    estadoLayer.addTo(map);
 }
 
 // Camada: limite municipal (Igarassu) - opcional
@@ -168,6 +170,8 @@ if (geojsonMunicipal) {
     } catch(e) {
         console.warn('Falha ao adicionar limite municipal:', e);
     }
+    // adicionar ao mapa por padrão
+    municipalLayer.addTo(map);
 }
 
 // Camada: todos os municípios de Pernambuco (opcional)
