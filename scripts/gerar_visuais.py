@@ -1047,16 +1047,11 @@ body,html{{height:100%;margin:0;padding:0;font-family:Arial,sans-serif;backgroun
         .info h3 {{ font-size:14px; }}
         .footer {{ left: 12px; right: 12px; bottom: 12px; max-width: none; }}
 }}
-/* Botão alternar legenda */
-.toggle-info-btn {{ position: absolute; right: 12px; bottom: 88px; z-index: 1500; background: var(--bugn-3); color: white; border: none; padding: 10px 12px; border-radius: 8px; cursor: pointer; box-shadow: 0 6px 14px rgba(6,33,24,0.12); font-size: 14px; }}
-.toggle-info-btn.small {{ padding:8px 10px; font-size:13px; }}
-.toggle-info-btn:focus {{ outline:3px solid rgba(44,162,95,0.18); }}
-.hidden-info {{ transform: translateY(6px); opacity: 0; pointer-events: none; }}
+/* legenda sempre visível; botão de alternar removido do template para evitar bloqueio */
 </style>
 </head><body>
 <div class='header'>PRAD Simulado – Mata Atlântica (Pernambuco)</div>
 <div id='map'></div>
-<button id='toggleInfoBtn' class='toggle-info-btn' aria-pressed='false' title='Mostrar / Ocultar legenda'>Mostrar</button>
 <div class='info' id='infoPanel'>
   <h3>Local de Estudo</h3>
     <strong>Município:</strong> Igarassu/PE<br/>
@@ -1089,30 +1084,7 @@ var geojsonMunicipal = {geojson_municipal if geojson_municipal is not None else 
 var geojsonMunicipiosPE = {geojson_municipios_pe if geojson_municipios_pe is not None else 'null'};
 var geojsonBiomas = {geojson_biomas if geojson_biomas is not None else 'null'};
 
-// Toggle da legenda/info (persistência local)
-(function(){{
-    var btn = document.getElementById('toggleInfoBtn');
-    var info = document.getElementById('infoPanel');
-    function setState(show){{
-        if(!info) return;
-        if(show){{
-            info.classList.remove('hidden-info');
-            btn.textContent = 'Ocultar';
-            btn.setAttribute('aria-pressed','true');
-            localStorage.setItem('prad_info_visible','1');
-        }} else {{
-            info.classList.add('hidden-info');
-            btn.textContent = 'Mostrar';
-            btn.setAttribute('aria-pressed','false');
-            localStorage.setItem('prad_info_visible','0');
-        }}
-    }}
-    btn.addEventListener('click', function(){{ setState(!info.classList.contains('hidden-info')); }});
-    // estado inicial a partir do localStorage (ocultar por padrão em telas pequenas)
-    var stored = localStorage.getItem('prad_info_visible');
-    var small = window.matchMedia && window.matchMedia('(max-width: 700px)').matches;
-    if(stored === null){{ setState(!small); }} else {{ setState(stored === '1'); }}
-}})();
+// legenda sempre visível; controle de toggle removido do template
 
 // Camada principal: parcelas (visível por padrão)
 var parcelasLayer = L.geoJSON(geojsonData, {{
