@@ -1111,7 +1111,7 @@ if (parcelasLayer.getBounds && parcelasLayer.getBounds().isValid()) {{
 
 // Camada: limite estadual (opcional)
 var estadoLayer = null;
-if (geojsonEstadual) {{
+    if (geojsonEstadual) {{
     try {{
         estadoLayer = L.geoJSON(geojsonEstadual, {{
             style: function(f) {{ return {{color:'#1b7837', weight:3, fillOpacity:0}}; }},
@@ -1123,11 +1123,13 @@ if (geojsonEstadual) {{
     }} catch(e) {{
         console.warn('Falha ao adicionar limite estadual:', e);
     }}
+    // adicionar ao mapa por padrão para que fique visível
+    estadoLayer && estadoLayer.addTo(map);
 }}
 
 // Camada: limite municipal (Igarassu) - opcional
 var municipalLayer = null;
-if (geojsonMunicipal) {{
+    if (geojsonMunicipal) {{
     try {{
         municipalLayer = L.geoJSON(geojsonMunicipal, {{
             style: function(f) {{ return {{color:'#984ea3', weight:2, dashArray:'6 6', fillOpacity:0}}; }},
@@ -1139,6 +1141,8 @@ if (geojsonMunicipal) {{
     }} catch(e) {{
         console.warn('Falha ao adicionar limite municipal:', e);
     }}
+    // adicionar ao mapa por padrão
+    municipalLayer && municipalLayer.addTo(map);
 }}
 
 // Camada: todos os municípios de Pernambuco (opcional)
