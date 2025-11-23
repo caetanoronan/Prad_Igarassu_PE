@@ -1,37 +1,27 @@
 <!DOCTYPE html><html lang='pt-br'><head><meta charset='utf-8'/><title>Mapa – PRAD Simulado Pernambuco</title>
 <link rel='stylesheet' href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'/>
 <style>
-:root {
-    --bg: #f7fcfb;
-    --card: #ffffff;
-    --muted: #425b55;
-    --accent: #2ca25f;
-    --bugn-1: #e5f5f9;
-    --bugn-2: #99d8c9;
-    --bugn-3: #2ca25f;
-}
-body,html{height:100%;margin:0;padding:0;font-family:Arial,sans-serif;background:var(--bg);color:#0b2e24}
-#map{height:calc(100% - 64px);width:100%;}
-.header{background:var(--card);color:var(--muted);padding:12px 20px;font-size:18px;font-weight:700;text-align:center;border-bottom:4px solid var(--bugn-2);}
-.info{background:var(--card);padding:12px 14px;border:1px solid rgba(6,33,24,0.08);position:absolute;top:120px;left:12px;z-index:900;font-size:14px;line-height:1.5;max-width:360px;box-shadow:0 8px 20px rgba(6,33,24,0.06);border-radius:8px;overflow:auto;max-height:60vh;transition:transform 180ms ease,opacity 180ms ease;}
-.info h3{margin:0 0 8px 0;font-size:15px;border-bottom:2px solid var(--bugn-1);padding-bottom:6px;color:#073826}
-.legend-item{margin:6px 0;display:flex;align-items:center;gap:8px}
-.legend-item .swatch{display:inline-block;width:22px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,0.06)}
-.footer{position:absolute;bottom:12px;left:12px;background:rgba(255,255,255,0.95);padding:8px 12px;font-size:12px;border-radius:8px;z-index:900;text-align:left;max-width:calc(100% - 40px);box-shadow:0 6px 14px rgba(6,33,24,0.06)}
+body,html{height:100%;margin:0;padding:0;font-family:Arial,sans-serif;}
+#map{height:calc(100% - 60px);width:100%;}
+.header{background:#2c3e50;color:#fff;padding:12px 20px;font-size:18px;font-weight:bold;text-align:center;}
+.info{background:#fff;padding:10px 12px;border:2px solid #333;position:absolute;top:120px;left:10px;z-index:600;font-size:13px;line-height:1.6;max-width:320px;box-shadow:0 2px 6px rgba(0,0,0,0.3);border-radius:6px;overflow:auto;max-height:60vh;transition:all 0.15s ease-in-out;}
+.info h3{margin:0 0 8px 0;font-size:14px;border-bottom:2px solid #2c3e50;padding-bottom:4px;}
+.legend-item{margin:4px 0;}
+.legend-item span{display:inline-block;width:20px;height:12px;margin-right:6px;border:1px solid #333;}
+.footer{position:absolute;bottom:10px;left:10px;background:rgba(255,255,255,0.95);padding:6px 10px;font-size:11px;border:1px solid #ccc;z-index:600;border-radius:6px;text-align:left;max-width:calc(100% - 40px);}
 /* Garantir controles do Leaflet por cima dos elementos informativos */
-.leaflet-control-container{z-index:1600 !important}
+.leaflet-control-container{z-index:1500 !important;}
 
 @media (max-width: 700px) {
-        .info { position: fixed; bottom: 88px; left: 12px; right: 12px; top: auto; max-width: none; max-height:36vh; }
-        #map { height: calc(100% - 156px); }
-        .info h3 { font-size:14px; }
-        .footer { left: 12px; right: 12px; bottom: 12px; max-width: none; }
+    .info { position: fixed; bottom: 70px; left: 10px; right: 10px; top: auto; max-width: none; max-height:35vh; }
+    #map { height: calc(100% - 120px); }
+    .info h3 { font-size:13px; }
+    .footer { left: 10px; right: 10px; bottom: 10px; max-width: none; }
 }
 /* Botão alternar legenda */
-.toggle-info-btn { position: absolute; right: 12px; bottom: 88px; z-index: 1500; background: var(--bugn-3); color: white; border: none; padding: 10px 12px; border-radius: 8px; cursor: pointer; box-shadow: 0 6px 14px rgba(6,33,24,0.12); font-size: 14px; }
-.toggle-info-btn.small { padding:8px 10px; font-size:13px; }
-.toggle-info-btn:focus { outline:3px solid rgba(44,162,95,0.18); }
-.hidden-info { transform: translateY(6px); opacity: 0; pointer-events: none; }
+.toggle-info-btn { position: absolute; right: 10px; bottom: 70px; z-index: 1400; background: #2c3e50; color: white; border: none; padding: 8px 10px; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); font-size: 13px; }
+.toggle-info-btn.small { padding:6px 8px; font-size:12px; }
+.hidden-info { display: none !important; }
 </style>
 </head><body>
 <div class='header'>PRAD Simulado – Mata Atlântica (Pernambuco)</div>
@@ -44,10 +34,10 @@ body,html{height:100%;margin:0;padding:0;font-family:Arial,sans-serif;background
   <strong>Área:</strong> 12 ha (APP + RL)<br/>
   <hr style='margin:8px 0;'/>
   <h3>Legendas</h3>
-    <div class='legend-item'><span class='swatch' style='background:var(--bugn-3);'></span>Parcela P01 – Desempenho alto</div>
-    <div class='legend-item'><span class='swatch' style='background:var(--bugn-2);'></span>Parcela P02 – Recuperação progressiva</div>
-    <div class='legend-item'><span class='swatch' style='width:28px;height:6px;border-radius:3px;background:rgba(11,46,36,0.08);border:0;'></span>Limite Estadual</div>
-    <div class='legend-item'><span class='swatch' style='width:28px;height:6px;border-radius:3px;background:rgba(136,77,164,0.12);border:0;'></span>Limite Municipal</div>
+    <div class='legend-item'><span style='background:#2b8cbe;'></span>Parcela P01 – Desempenho alto</div>
+    <div class='legend-item'><span style='background:#de2d26;'></span>Parcela P02 – Recuperação progressiva</div>
+    <div class='legend-item'><span style='display:inline-block;width:22px;height:2px;background:#1b7837;border:0;vertical-align:middle;margin-right:6px;'></span>Limite Estadual</div>
+    <div class='legend-item'><span style='display:inline-block;width:22px;height:2px;background:#984ea3;border:0;vertical-align:middle;margin-right:6px;'></span>Limite Municipal</div>
 </div>
 <div class='footer'><strong>Autor:</strong> Ronan Armando Caetano — Graduando em Ciências Biológicas (UFSC) • Técnico em Geoprocessamento (IFSC) • Técnico em Saneamento (IFSC)</div>
 <script src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js'></script>
