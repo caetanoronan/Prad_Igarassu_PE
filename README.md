@@ -1,3 +1,17 @@
+# PRAD — Programa de Recuperação de Áreas Degradadas (repositório)
+
+Este repositório reúne um projeto de exemplo (Simulado_PE) com scripts e artefatos para monitoramento, cálculo de indicadores e geração de visuais interativos (mapa + dashboard). O conteúdo foi preparado para publicação via GitHub Pages — veja o site de entrega abaixo.
+
+Site público (GitHub Pages): https://caetanoronan.github.io/Prad_Igarassu_PE/
+
+CI / Deploy automático
+----------------------
+Há um workflow (GitHub Actions) que regenerará os visuais e publicará automaticamente a pasta `docs/` no branch `gh-pages` sempre que houver push para `main` (ou via execução manual do workflow). Isso mantém o site atualizado sem necessidade de procedimentos manuais.
+
+Licença
+-------
+Este projeto está licenciado sob MIT — veja o arquivo `LICENSE`.
+
 # Estrutura do PRAD nesta pasta
 
 Conteúdo criado para apoiar a elaboração do Programa de Recuperação de Áreas Degradadas (PRAD):

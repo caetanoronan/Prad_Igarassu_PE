@@ -1,0 +1,41 @@
+name: Build and deploy GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Ensure scripts are executable
+        run: |
+          python -V
+
+      - name: Run generator (gera visuais)
+        run: |
+          python scripts/gerar_visuais.py
+
+      - name: Prepare docs (copy artifacts into docs/)
+        run: |
+          python scripts/publish_docs.py
+
+      - name: Deploy to GitHub Pages (publish ./docs)
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
